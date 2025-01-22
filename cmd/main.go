@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 
+	"github.com/yashisrani/Go-Backend/api"
 	"github.com/yashisrani/Go-Backend/controllers"
-	"github.com/yashisrani/Go-Backend/store"
 )
 
-func main()  {
-	server:= controllers.Server{}
-	server.NewServer(store.Postgress{})
-	fmt.Println("main",server)
+func main() {
+	api := api.Apiroutes{}
+
+	api.StartApp(controllers.Server{})
+	fmt.Println("main", api)
 }
