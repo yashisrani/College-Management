@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 
+	"github.com/gin-gonic/gin"
 	"github.com/yashisrani/Go-Backend/model"
 	"github.com/yashisrani/Go-Backend/store"
 	"github.com/yashisrani/Go-Backend/utils"
@@ -27,4 +28,5 @@ func (s *Server) NewServer(pgstore store.Postgress) {
 
 type ServerOperation interface {
 	NewServer(pgstore store.Postgress)
+	CreateUser(ctx *gin.Context)
 }
