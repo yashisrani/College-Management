@@ -1,6 +1,7 @@
 package store
 
 import (
+	"github.com/google/uuid"
 	"github.com/yashisrani/Go-Backend/model"
 	"github.com/yashisrani/Go-Backend/utils"
 	"gorm.io/driver/postgres"
@@ -18,7 +19,7 @@ func (store *Postgress) NewStore() error {
 		utils.Log(model.LogLevelError, model.Store, model.NewStore, "error while connecting database", err)
 		return err
 	} else {
-		utils.Log(model.LogLevelError, model.Store, model.NewStore, "Database connected successfully", nil)
+		utils.Log(model.LogLevelInfo, model.Store, model.NewStore, "Database connected successfully", nil)
 		store.DB = db
 	}
 
@@ -39,4 +40,6 @@ func (store *Postgress) NewStore() error {
 type StoreOperation interface {
 	NewStore() error
 	CreateUser(user *model.User) error
+	GetUsers() ([]model.User, error)
+	GetUserByID(userID uuid.UUID) (*model.User, error)
 }

@@ -29,4 +29,6 @@ func (s *Server) NewServer(pgstore store.Postgress) {
 type ServerOperation interface {
 	NewServer(pgstore store.Postgress)
 	CreateUser(ctx *gin.Context)
+	GetUsers(ctx *gin.Context)
+	GetUserByID(ctx *gin.Context)
 }

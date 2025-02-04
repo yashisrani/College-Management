@@ -35,4 +35,8 @@ var (
 	NewServer  = "new-server"
 	NewStore   = "new-store"
 	CreateUser = "create-user"
+	GetUsers = "get-users"
+	GetUserByID = "get-user-by-id"
+	UpdateUser = "update-user"
+	DeleteUser = "delete-user"
 )
