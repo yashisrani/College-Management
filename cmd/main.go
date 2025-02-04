@@ -12,6 +12,6 @@ func main() {
 	route := gin.Default()
 	api.StartApp(route, controller)
 	
-	route.Run(":8080")
+	route.Run(":8000")
 	// fmt.Println("main", api)
 }
