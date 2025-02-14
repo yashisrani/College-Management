@@ -42,4 +42,7 @@ type StoreOperation interface {
 	CreateUser(user *model.User) error
 	GetUsers() ([]model.User, error)
 	GetUserByID(userID uuid.UUID) (*model.User, error)
+	GetUserByFilter(filter map[string]interface{}) ([]model.User, error)
+	DeleteUser(userID string) error
+	UpdateUser(user *model.User) error
 }

@@ -31,4 +31,7 @@ type ServerOperation interface {
 	CreateUser(ctx *gin.Context)
 	GetUsers(ctx *gin.Context)
 	GetUserByID(ctx *gin.Context)
+	GetUserByFilter(ctx *gin.Context)
+	DeleteUser(c *gin.Context) error
+	UpdateUser(c *gin.Context) error
 }

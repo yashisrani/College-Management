@@ -2,6 +2,7 @@ package utils
 
 import (
 	"flag"
+	"net/url"
 	"os"
 
 	"github.com/sirupsen/logrus"
@@ -62,11 +63,25 @@ func Log(logLevel, packageLevel, functionName string, message, parameter interfa
 		} else {
 			Logger.Fatalf("packageLevel: %s, functionName: %s, message: %v", packageLevel, functionName, message)
 		}
-	default :
+	default:
 		if parameter != nil {
 			Logger.Infof("packageLevel: %s, functionName: %s, message: %v, parameter: %v", packageLevel, functionName, message, parameter)
 		} else {
 			Logger.Infof("packageLevel: %s, functionName: %s, message: %v", packageLevel, functionName, message)
 		}
 	}
+}
+
+func ConvertQueryParams(queryparams url.Values) map[string]interface{} {
+	result := make(map[string]interface{})
+
+	for key, values := range queryparams {
+		if len(values) == 1 {
+			result[key] = values[0] // single vlaue as string
+		} else {
+			result[key] = values
+		}
+
+	}
+	return result
 }

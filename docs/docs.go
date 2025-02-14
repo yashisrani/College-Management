@@ -48,6 +48,166 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/delete/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Delete a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/user/filter": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get all users based on given filters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "email",
+                        "name": "email",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "active",
+                        "name": "active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "created_by",
+                        "name": "created_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "updated_by",
+                        "name": "updated_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "first_name",
+                        "name": "first_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "last_name",
+                        "name": "last_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "lane",
+                        "name": "lane",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "village",
+                        "name": "village",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "city",
+                        "name": "city",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "district",
+                        "name": "district",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pincode",
+                        "name": "pincode",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "state",
+                        "name": "state",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "start date",
+                        "name": "start_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "end date",
+                        "name": "end_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.User"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/user/getusers": {
             "get": {
                 "security": [
@@ -89,6 +249,51 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Update a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "User object",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                }
+            }
+        },
         "/user/{id}": {
             "get": {
                 "security": [
@@ -124,60 +329,25 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "model.Address": {
-            "type": "object",
-            "properties": {
-                "city": {
-                    "type": "string"
-                },
-                "district": {
-                    "type": "string"
-                },
-                "lane": {
-                    "type": "string"
-                },
-                "pincode": {
-                    "type": "integer"
-                },
-                "state": {
-                    "type": "string"
-                },
-                "village": {
-                    "type": "string"
-                }
-            }
-        },
-        "model.Name": {
-            "type": "object",
-            "properties": {
-                "first_name": {
-                    "type": "string"
-                },
-                "last_name": {
-                    "type": "string"
-                }
-            }
-        },
         "model.User": {
             "type": "object",
             "required": [
-                "address",
-                "name"
+                "email",
+                "password"
             ],
             "properties": {
                 "active": {
-                    "description": "active is used to see user is active or not active.",
+                    "description": "Name      Name      ` + "`" + `gorm:\"embedded\" json:\"name\" binding:\"required\"` + "`" + ` // gorm:embedded to add name and address struct to main struct.\nAddress   Address   ` + "`" + `gorm:\"embedded\" json:\"address\" binding:\"required\"` + "`" + `",
                     "type": "boolean",
                     "example": true
                 },
-                "address": {
-                    "$ref": "#/definitions/model.Address"
+                "city": {
+                    "type": "string"
                 },
                 "created_at": {
                     "type": "string"
                 },
                 "created_by": {
-                    "description": "Email     string    ` + "`" + `json:\"email\" gorm:\"unique;notnull\" binding:\"required\"` + "`" + `\nPassword  string    ` + "`" + `json:\"password\" gorm:\"notnull\" binding:\"required\"` + "`" + `",
                     "type": "string",
                     "example": "user"
                 },
@@ -188,16 +358,32 @@ const docTemplate = `{
                 "deleted_at": {
                     "type": "string"
                 },
+                "district": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },
-                "name": {
-                    "description": "gorm:embedded to add name and address struct to main struct.",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/model.Name"
-                        }
-                    ]
+                "lane": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "pincode": {
+                    "type": "integer"
+                },
+                "state": {
+                    "type": "string"
                 },
                 "updated_at": {
                     "type": "string"
@@ -205,6 +391,9 @@ const docTemplate = `{
                 "updated_by": {
                     "type": "string",
                     "example": "admin"
+                },
+                "village": {
+                    "type": "string"
                 }
             }
         }

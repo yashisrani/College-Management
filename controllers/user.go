@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -70,4 +71,82 @@ func (server Server) GetUserByID(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusCreated, user)
+}
+
+func (server Server) GetUserByFilter(ctx *gin.Context) {
+
+	utils.Log(model.LogLevelInfo, model.ControllersPackage, model.GetUserByFilter, "fetching user by filter", nil)
+
+	queryparams := ctx.Request.URL.Query()
+
+	filter := utils.ConvertQueryParams(queryparams)
+
+	user, err := server.PostgressDB.GetUserByFilter(filter)
+
+	// uuid, err := uuid.Parse(id)
+	// if err != nil {
+	// 	utils.Log(model.LogLevelError, model.ControllersPackage, model.GetUserByID, "invalid user ID format", err)
+	// 	ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID format"})
+	// 	return
+	// }
+
+	// user, err = server.PostgressDB.GetUserByID(uuid)
+	if err != nil {
+		utils.Log(model.LogLevelError, model.ControllersPackage, model.GetUserByFilter, "error while fetching record ", err)
+		ctx.JSON(http.StatusInternalServerError, err)
+		return
+	}
+	ctx.JSON(http.StatusCreated, user)
+}
+
+func (server *Server) UpdateUser(c *gin.Context) error {
+
+	var user model.User
+	//Unmarshal
+	utils.Log(model.LogLevelInfo, model.ControllersPackage, model.UpdateUser,
+		"unmarshaling user data", nil)
+	err := c.ShouldBindJSON(&user)
+	if err != nil {
+		utils.Log(model.LogLevelError, model.ControllersPackage, model.UpdateUser,
+			"error while unmarshaling payload", err)
+		return fmt.Errorf("")
+	}
+	//validation is to be done here
+	//DB call
+	user.UpdatedAt = time.Now().UTC()
+	err = server.PostgressDB.UpdateUser(&user)
+	if err != nil {
+		utils.Log(model.LogLevelError, model.ControllersPackage, model.UpdateUser,
+			"error while updating record from pgress", err)
+		return fmt.Errorf("")
+	}
+	utils.Log(model.LogLevelInfo, model.ControllersPackage, model.GetUsers,
+		"successfully updated user record and setting response", user)
+	c.JSON(http.StatusOK, user)
+	return nil
+
+}
+
+func (server *Server) DeleteUser(c *gin.Context) error {
+
+	//validation is to be done here
+	utils.Log(model.LogLevelInfo, model.ControllersPackage, model.DeleteUser,
+		"reading user id", nil)
+	id := c.Param("id")
+	if id == "" {
+		utils.Log(model.LogLevelError, model.ControllersPackage, model.DeleteUser,
+			"missing user id", nil)
+		return fmt.Errorf("")
+	}
+	//DB call
+	err := server.PostgressDB.DeleteUser(id)
+	if err != nil {
+		utils.Log(model.LogLevelError, model.ControllersPackage, model.DeleteUser,
+			"error while deleting user record from pgress", err)
+		return fmt.Errorf("")
+	}
+	utils.Log(model.LogLevelInfo, model.ControllersPackage, model.DeleteUser,
+		"successfully deleted user record ", nil)
+	return nil
+
 }
