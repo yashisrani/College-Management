@@ -45,4 +45,6 @@ type StoreOperation interface {
 	GetUserByFilter(filter map[string]interface{}) ([]model.User, error)
 	DeleteUser(userID string) error
 	UpdateUser(user *model.User) error
+	SignUp(user *model.User) error
+	SignIn(userSignIn model.UserSignIn) (*model.User, error)
 }

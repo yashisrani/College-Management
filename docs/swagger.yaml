@@ -1,5 +1,10 @@
 basePath: /
 definitions:
+  model.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
   model.User:
     properties:
       active:
@@ -38,6 +43,8 @@ definitions:
         type: integer
       state:
         type: string
+      type:
+        type: string
       updated_at:
         type: string
       updated_by:
@@ -47,6 +54,16 @@ definitions:
         type: string
     required:
     - email
+    - password
+    type: object
+  model.UserSignIn:
+    properties:
+      emailid:
+        type: string
+      password:
+        type: string
+    required:
+    - emailid
     - password
     type: object
 host: localhost:8000
@@ -223,6 +240,58 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Get all users
+      tags:
+      - users
+  /user/signin:
+    post:
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserSignIn'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful SignIn
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: SighIn user
+      tags:
+      - users
+  /user/signup:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful SignUp
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: SignUp a user
       tags:
       - users
   /user/update/{id}:

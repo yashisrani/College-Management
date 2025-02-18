@@ -9,12 +9,14 @@ import (
 func (api *Apiroutes) UserRoutes(route *gin.Engine) {
 	group := route.Group("user")
 	{
-		group.POST("/create", api.CreateUser)
-		group.GET("/getusers", api.GetUsers)
-		group.GET("/:id", api.GetUserByID)
-		group.GET("/filter", api.GetUserByFilter)
-		group.PUT("/update/:id", api.UpdateUser)
-		group.DELETE("/delete/:id", api.DeleteUser)
+		group.POST("/create", api.AuthMiddleware(), api.CreateUser)
+		group.GET("/getusers", api.AuthMiddleware(), api.GetUsers)
+		group.GET("/:id", api.AuthMiddleware(), api.GetUserByID)
+		group.GET("/filter", api.AuthMiddleware(), api.GetUserByFilter)
+		group.PUT("/update/:id", api.AuthMiddleware(), api.UpdateUser)
+		group.DELETE("/delete/:id", api.AuthMiddleware(), api.DeleteUser)
+		group.POST("/signup", api.SignUp)
+		group.POST("/signin", api.SignIn)
 	}
 
 }
@@ -111,6 +113,35 @@ func (api Apiroutes) UpdateUser(ctx *gin.Context) {
 // @param id path string true "User ID"
 // @Security ApiKeyAuth
 func (api Apiroutes) DeleteUser(ctx *gin.Context) {
-	utils.Log(model.LogLevelInfo, model.ApiPackage, model.DeleteUser, "deleteing  user", nil)
+	utils.Log(model.LogLevelInfo, model.ApiPackage, model.DeleteUser, "deleteing user", nil)
 	api.Server.DeleteUser(ctx)
+}
+
+// Handler to signIn a user by email and password
+// @router /user/signin [post]
+// @summary SighIn user
+// @tags users
+// @produce json
+// @param user body model.UserSignIn true "User object"
+// @Success 200 {string} string "Successful SignIn"
+// @failure 404 {object} model.ErrorResponse
+// @Security ApiKeyAuth
+func (api Apiroutes) SignIn(ctx *gin.Context) {
+	utils.Log(model.LogLevelInfo, model.ApiPackage, model.SignIn, "signin user", nil)
+	api.Server.SignIn(ctx)
+}
+
+// Handler to SignUp a user
+// @router /user/signup [post]
+// @summary SignUp a user
+// @tags users
+// @accept json
+// @produce json
+// @param user body model.User true "User object"
+// @Success 200 {string} string "Successful SignUp"
+// @failure 400 {object} model.ErrorResponse
+// @Security ApiKeyAuth
+func (api Apiroutes) SignUp(ctx *gin.Context) {
+	utils.Log(model.LogLevelInfo, model.ApiPackage, model.SignUP, "signup user", nil)
+	api.Server.SignUp(ctx)
 }

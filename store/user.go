@@ -144,3 +144,32 @@ func (store Postgress) GetUserByFilter(filter map[string]interface{}) ([]model.U
 }
 
 
+func (store Postgress) SignUp(user *model.User) error {
+
+	utils.Log(model.LogLevelInfo, model.StorePackage, model.SignUP, "creating user data with signup api", *user)
+	resp := store.DB.Create(user)
+	if resp.Error != nil {
+		utils.Log(model.LogLevelError, model.StorePackage, model.SignUP,
+			"error while creating user data", resp.Error)
+		return fmt.Errorf("error while creating user record with signup api, err = %v", resp.Error)
+	}
+	utils.Log(model.LogLevelInfo, model.StorePackage, model.SignUP,
+		"successfully created user with signup api", nil)
+	return nil
+}
+
+func (store Postgress) SignIn(userSignIn model.UserSignIn) (*model.User, error) {
+	var user model.User
+	utils.Log(model.LogLevelInfo, model.StorePackage, model.SignIn,
+		"reading user data from db based on email", userSignIn)
+	resp := store.DB.Where("email = ? AND password = ?", userSignIn.EmailID, userSignIn.Password).First(&user)
+	if resp.Error != nil {
+		utils.Log(model.LogLevelError, model.StorePackage, model.SignIn,
+			"error while reading user data", resp.Error)
+		return &user, fmt.Errorf("error while fetching user record from DB for given id, err = %v", resp.Error)
+	}
+	utils.Log(model.LogLevelInfo, model.StorePackage, model.SignIn,
+		"returning user data", user)
+	return &user, nil
+}
+

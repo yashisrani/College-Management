@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"github.com/yashisrani/Go-Backend/model"
 	"github.com/yashisrani/Go-Backend/utils"
@@ -149,4 +150,87 @@ func (server *Server) DeleteUser(c *gin.Context) error {
 		"successfully deleted user record ", nil)
 	return nil
 
+}
+
+// SignIn API handler
+func (server *Server) SignIn(c *gin.Context) {
+	var user model.UserSignIn
+	err := c.ShouldBindJSON(&user)
+	if err != nil {
+		utils.Log(model.LogLevelError, model.ControllersPackage, model.CreateUser,
+			"error while unmarshaling payload", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user Data from payload"})
+		return
+	}
+
+	userResp, err := server.PostgressDB.SignIn(user)
+	if err != nil {
+		utils.Log(model.LogLevelError, model.ControllersPackage, model.SignIn,
+			"error in getting user data from pgress for emailId", user.EmailID)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user Data for given user"})
+		return
+	}
+	if userResp.Email != user.EmailID || userResp.Password != user.Password {
+		utils.Log(model.LogLevelInfo, model.ControllersPackage, model.SignIn,
+			"user data not matched , database response", userResp)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to validate user data"})
+		return
+	}
+
+	// Create a new token
+	newtoken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		model.Email:    user.EmailID,
+		model.Password: user.Password,
+		model.UserID:   userResp.ID,
+		model.Expire:   time.Now().Add(model.TokenExpiration).Unix(), // Token expiration time
+		// Additional data can be added here
+	})
+
+	// Sign the newtoken with the secret key
+	tokenString, err := newtoken.SignedString(model.SecretKey)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"token": tokenString})
+}
+
+// Signup API handler
+func (server *Server) SignUp(c *gin.Context) {
+	var user model.User
+
+	utils.Log(model.LogLevelInfo, model.ControllersPackage, model.SignUP,
+		"unmarshaling user data", nil)
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	user.ID = uuid.New()
+	user.CreatedAt = time.Now().UTC()
+	err := server.PostgressDB.SignUp(&user)
+	if err != nil {
+		utils.Log(model.LogLevelError, model.ControllersPackage, model.SignUP,
+			"error in saving user record", user)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to SignUp User"})
+		return
+	}
+
+	// Create a new token
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		model.Email:    user.Email,
+		model.Password: user.Password,
+		model.UserID:   user.ID,
+		model.Expire:   time.Now().Add(model.TokenExpiration).Unix(), // Token expiration time
+		// Additional data can be added here
+	})
+
+	// Sign the token with the secret key
+	tokenString, err := token.SignedString(model.SecretKey)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"token": tokenString})
 }

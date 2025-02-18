@@ -27,4 +27,10 @@ type User struct {
 	State     string    `json:"state"`
 	FirstName string    `json:"first_name"`
 	LastName  string    `json:"last_name"`
+	Type      string    `json:"type" gorm:"not null"`
+}
+
+type UserSignIn struct {
+	EmailID  string `json:"emailid" binding:"required"`
+	Password string `json:"password" binding:"required"`
 }
