@@ -1,5 +1,65 @@
 basePath: /
 definitions:
+  model.College:
+    properties:
+      active:
+        description: active is used to see user is active or not active.
+        example: true
+        type: boolean
+      admin_id:
+        type: string
+      city:
+        type: string
+      created_at:
+        type: string
+      created_by:
+        example: user
+        type: string
+      delete_by:
+        example: admin
+        type: string
+      deleted_at:
+        type: string
+      director_id:
+        example: e9138023-1301081301
+        type: string
+      district:
+        type: string
+      domain:
+        example: noble
+        type: string
+      hostel:
+        type: boolean
+      id:
+        type: string
+      lane:
+        type: string
+      pincode:
+        type: integer
+      principle_id:
+        type: string
+      state:
+        type: string
+      university_type:
+        example: private college
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        example: admin
+        type: string
+      village:
+        type: string
+    required:
+    - city
+    - director_id
+    - district
+    - domain
+    - hostel
+    - pincode
+    - state
+    - university_type
+    type: object
   model.ErrorResponse:
     properties:
       error:
@@ -73,6 +133,213 @@ info:
   title: School-Management
   version: "1.0"
 paths:
+  /college/{id}:
+    get:
+      parameters:
+      - description: College ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.College'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a College by ID
+      tags:
+      - Colleges
+  /college/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: College object
+        in: body
+        name: College
+        required: true
+        schema:
+          $ref: '#/definitions/model.College'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.College'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a College
+      tags:
+      - Colleges
+  /college/delete/{id}:
+    delete:
+      parameters:
+      - description: College ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a College
+      tags:
+      - Colleges
+  /college/filter:
+    get:
+      parameters:
+      - description: domain
+        in: query
+        name: domain
+        type: string
+      - description: id
+        in: query
+        name: id
+        type: string
+      - description: hostel
+        in: query
+        name: hostel
+        type: string
+      - description: active
+        in: query
+        name: active
+        type: boolean
+      - description: created_by
+        in: query
+        name: created_by
+        type: string
+      - description: updated_by
+        in: query
+        name: updated_by
+        type: string
+      - description: admin_id
+        in: query
+        name: admin_id
+        type: string
+      - description: director_id
+        in: query
+        name: director_id
+        type: string
+      - description: principle_id
+        in: query
+        name: principle_id
+        type: string
+      - description: lane
+        in: query
+        name: lane
+        type: string
+      - description: village
+        in: query
+        name: village
+        type: string
+      - description: university_type
+        in: query
+        name: university_type
+        type: string
+      - description: city
+        in: query
+        name: city
+        type: string
+      - description: district
+        in: query
+        name: district
+        type: string
+      - description: pincode
+        in: query
+        name: pincode
+        type: integer
+      - description: state
+        in: query
+        name: state
+        type: string
+      - description: start date
+        in: query
+        name: start_date
+        type: string
+      - description: end date
+        in: query
+        name: end_date
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.College'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all Colleges based on given filters
+      tags:
+      - Colleges
+  /college/getColleges:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.College'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all Colleges
+      tags:
+      - Colleges
+  /college/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: College ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: College object
+        in: body
+        name: College
+        required: true
+        schema:
+          $ref: '#/definitions/model.College'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.College'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a College
+      tags:
+      - Colleges
   /user/{id}:
     get:
       parameters:

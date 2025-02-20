@@ -26,6 +26,7 @@ func (store *Postgress) NewStore() error {
 	// apply automigration on model
 	err = db.AutoMigrate(
 		model.User{},
+		model.College{},
 	)
 	if err != nil {
 		utils.Log(model.LogLevelError, model.Store, model.NewStore, "error while automigration", err)
@@ -47,4 +48,11 @@ type StoreOperation interface {
 	UpdateUser(user *model.User) error
 	SignUp(user *model.User) error
 	SignIn(userSignIn model.UserSignIn) (*model.User, error)
+
+	CreateCollege(College *model.College) error
+	GetColleges() ([]model.College, error)
+	GetCollegeByID(CollegeID uuid.UUID) (*model.College, error)
+	GetCollegeByFilter(filter map[string]interface{}) ([]model.College, error)
+	DeleteCollege(CollegeID string) error
+	UpdateCollege(College *model.College) error
 }

@@ -13,6 +13,335 @@
     "host": "localhost:8000",
     "basePath": "/",
     "paths": {
+        "/college/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colleges"
+                ],
+                "summary": "Create a College",
+                "parameters": [
+                    {
+                        "description": "College object",
+                        "name": "College",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.College"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.College"
+                        }
+                    }
+                }
+            }
+        },
+        "/college/delete/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "tags": [
+                    "Colleges"
+                ],
+                "summary": "Delete a College",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "College ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/college/filter": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colleges"
+                ],
+                "summary": "Get all Colleges based on given filters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "domain",
+                        "name": "domain",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "hostel",
+                        "name": "hostel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "active",
+                        "name": "active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "created_by",
+                        "name": "created_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "updated_by",
+                        "name": "updated_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "admin_id",
+                        "name": "admin_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "director_id",
+                        "name": "director_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "principle_id",
+                        "name": "principle_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "lane",
+                        "name": "lane",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "village",
+                        "name": "village",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "university_type",
+                        "name": "university_type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "city",
+                        "name": "city",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "district",
+                        "name": "district",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pincode",
+                        "name": "pincode",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "state",
+                        "name": "state",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "start date",
+                        "name": "start_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "end date",
+                        "name": "end_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.College"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/college/getColleges": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colleges"
+                ],
+                "summary": "Get all Colleges",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.College"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/college/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colleges"
+                ],
+                "summary": "Update a College",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "College ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "College object",
+                        "name": "College",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.College"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.College"
+                        }
+                    }
+                }
+            }
+        },
+        "/college/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colleges"
+                ],
+                "summary": "Get a College by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "College ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.College"
+                        }
+                    }
+                }
+            }
+        },
         "/user/create": {
             "post": {
                 "consumes": [
@@ -412,6 +741,89 @@
         }
     },
     "definitions": {
+        "model.College": {
+            "type": "object",
+            "required": [
+                "city",
+                "director_id",
+                "district",
+                "domain",
+                "hostel",
+                "pincode",
+                "state",
+                "university_type"
+            ],
+            "properties": {
+                "active": {
+                    "description": "active is used to see user is active or not active.",
+                    "type": "boolean",
+                    "example": true
+                },
+                "admin_id": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "created_by": {
+                    "type": "string",
+                    "example": "user"
+                },
+                "delete_by": {
+                    "type": "string",
+                    "example": "admin"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "director_id": {
+                    "type": "string",
+                    "example": "e9138023-1301081301"
+                },
+                "district": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string",
+                    "example": "noble"
+                },
+                "hostel": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "lane": {
+                    "type": "string"
+                },
+                "pincode": {
+                    "type": "integer"
+                },
+                "principle_id": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "university_type": {
+                    "type": "string",
+                    "example": "private college"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string",
+                    "example": "admin"
+                },
+                "village": {
+                    "type": "string"
+                }
+            }
+        },
         "model.ErrorResponse": {
             "type": "object",
             "properties": {

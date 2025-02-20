@@ -36,4 +36,11 @@ type ServerOperation interface {
 	UpdateUser(c *gin.Context) error
 	SignUp(c *gin.Context)
 	SignIn(c *gin.Context)
+
+	CreateCollege(ctx *gin.Context)
+	GetColleges(ctx *gin.Context)
+	GetCollegeByID(ctx *gin.Context)
+	GetCollegeByFilter(ctx *gin.Context)
+	DeleteCollege(c *gin.Context) error
+	UpdateCollege(c *gin.Context) error
 }

@@ -21,4 +21,5 @@ func (api *Apiroutes) StartApp(router *gin.Engine, server controllers.Server) {
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	api.UserRoutes(router)
+	api.CollegeRoutes(router)
 }

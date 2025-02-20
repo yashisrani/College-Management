@@ -45,6 +45,16 @@ var (
 	SignUP          = "signup"
 	SignIn          = "signin"
 	AuthMiddleware  = "authmiddleware"
+
+	CreateCollege      = "create-college"
+	GetCollege         = "get-college"
+	GetCollegeByFilter = "get-college-by-filter"
+	GetCollegeByID     = "get-college-by-id"
+	UpdateCollege      = "update-college"
+	DeleteCollege      = "delete-college"
+
+	setLimitAndPage = "setlimitandpage"
+	setDateRangeFilter = "setdaterangefilter"
 )
 
 var (
@@ -73,6 +83,6 @@ var SecretKey = []byte("college-management-key")
 
 var (
 	SuperAdminUser = "superadmin"
-	AdminUser =  "adminuser"
-	NormalUser = "normaluser"
+	AdminUser      = "adminuser"
+	NormalUser     = "normaluser"
 )
