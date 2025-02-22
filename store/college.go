@@ -129,8 +129,8 @@ func (store Postgress) GetCollegeByFilter(filter map[string]interface{}) ([]mode
 			"filters key", key+" value = "+fmt.Sprintf("%v", value))
 		query = query.Where(fmt.Sprintf("%s = ?", key), value)
 	}
-	// setLimitAndPage(filter, query)
-	// setDateRangeFilter(filter, query)
+	SetLimitAndPage(filter, query)
+	SetDateRangeFilter(filter, query)
 
 	err := query.Find(&colleges).Error
 	if err != nil {

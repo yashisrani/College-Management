@@ -22,4 +22,6 @@ func (api *Apiroutes) StartApp(router *gin.Engine, server controllers.Server) {
 
 	api.UserRoutes(router)
 	api.CollegeRoutes(router)
+	api.ClassRoutes(router)
+	api.TeacherRoutes(router)
 }

@@ -53,8 +53,22 @@ var (
 	UpdateCollege      = "update-college"
 	DeleteCollege      = "delete-college"
 
-	setLimitAndPage = "setlimitandpage"
-	setDateRangeFilter = "setdaterangefilter"
+	CreateClass      = "create-class"
+	GetClass         = "get-class"
+	GetClassByFilter = "get-class-by-filter"
+	GetClassByID     = "get-class-by-id"
+	UpdateClass      = "update-class"
+	DeleteClass      = "delete-class"
+
+	CreateTeacher      = "create-Teacher"
+	GetTeacher         = "get-Teacher"
+	GetTeacherByFilter = "get-Teacher-by-filter"
+	GetTeacherByID     = "get-Teacher-by-id"
+	UpdateTeacher      = "update-Teacher"
+	DeleteTeacher      = "delete-Teacher"
+
+	SetLimitAndPage = "setlimitandpage"
+	SetDateRangeFilter = "setdaterangefilter"
 )
 
 var (

@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"os"
 
+	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 	"github.com/yashisrani/Go-Backend/model"
 )
@@ -72,16 +73,22 @@ func Log(logLevel, packageLevel, functionName string, message, parameter interfa
 	}
 }
 
-func ConvertQueryParams(queryparams url.Values) map[string]interface{} {
+// ConvertQueryParams converts url.Values to map[string]interface{}
+func ConvertQueryParams(queryParams url.Values) map[string]interface{} {
 	result := make(map[string]interface{})
 
-	for key, values := range queryparams {
-		if len(values) == 1 {
-			result[key] = values[0] // single vlaue as string
-		} else {
-			result[key] = values
+	for key, values := range queryParams {
+		if key == "id" {
+			uuid, _ := uuid.Parse(values[0])
+			result[key] = uuid
+			continue
 		}
-
+		if len(values) == 1 {
+			result[key] = values[0] // single value, add as string
+		} else {
+			result[key] = values // multiple values, add as []string
+		}
 	}
+
 	return result
 }

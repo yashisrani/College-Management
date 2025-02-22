@@ -43,4 +43,19 @@ type ServerOperation interface {
 	GetCollegeByFilter(ctx *gin.Context)
 	DeleteCollege(c *gin.Context) error
 	UpdateCollege(c *gin.Context) error
+
+
+	CreateClass(ctx *gin.Context)
+	GetClass(ctx *gin.Context)
+	GetClassByID(ctx *gin.Context)
+	GetClassByFilter(ctx *gin.Context)
+	DeleteClass(c *gin.Context) error
+	UpdateClass(c *gin.Context) error
+
+	CreateTeacher(ctx *gin.Context)
+	GetTeacher(ctx *gin.Context)
+	GetTeacherByID(ctx *gin.Context)
+	GetTeacherByFilter(ctx *gin.Context)
+	DeleteTeacher(c *gin.Context) error
+	UpdateTeacher(c *gin.Context) error
 }
