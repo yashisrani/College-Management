@@ -13,6 +13,281 @@
     "host": "localhost:8000",
     "basePath": "/",
     "paths": {
+        "/Book/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Create a new Book",
+                "parameters": [
+                    {
+                        "description": "Book object",
+                        "name": "Book",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Book"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.Book"
+                        }
+                    }
+                }
+            }
+        },
+        "/Book/delete/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Delete a Book",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Book ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/Book/filter": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Get Books based on given filters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Book Name",
+                        "name": "book_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "School ID",
+                        "name": "school_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Active status",
+                        "name": "active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Created By",
+                        "name": "created_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Updated By",
+                        "name": "updated_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Book ID",
+                        "name": "book_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Publisher",
+                        "name": "publisher",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Author",
+                        "name": "author",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Edition Number",
+                        "name": "edition_number",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Book"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Book/getBooks": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Get all Books",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Book"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Book/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Update a Book",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Book ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Book object",
+                        "name": "Book",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Book"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Book"
+                        }
+                    }
+                }
+            }
+        },
+        "/Book/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Get a Book by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Book ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Book"
+                        }
+                    }
+                }
+            }
+        },
         "/Class/create": {
             "post": {
                 "security": [
@@ -271,6 +546,592 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/model.Class"
+                        }
+                    }
+                }
+            }
+        },
+        "/ComputerLab/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ComputerLab"
+                ],
+                "summary": "Create a new ComputerLab",
+                "parameters": [
+                    {
+                        "description": "ComputerLab object",
+                        "name": "ComputerLab",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ComputerLab"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.ComputerLab"
+                        }
+                    }
+                }
+            }
+        },
+        "/ComputerLab/delete/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "tags": [
+                    "ComputerLab"
+                ],
+                "summary": "Delete a ComputerLab",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ComputerLab ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/ComputerLab/filter": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ComputerLab"
+                ],
+                "summary": "Get ComputerLabs based on given filters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Class Name",
+                        "name": "class_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "School ID",
+                        "name": "school_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Active status",
+                        "name": "active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Instructor",
+                        "name": "instructor",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Total Students",
+                        "name": "total_students",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Classroom Number",
+                        "name": "classroom_number",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Syllabus",
+                        "name": "syllabus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Created By",
+                        "name": "created_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Updated By",
+                        "name": "updated_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ComputerLab ID",
+                        "name": "computerlab_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.ComputerLab"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ComputerLab/getComputerLabs": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ComputerLab"
+                ],
+                "summary": "Get all ComputerLabs",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.ComputerLab"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ComputerLab/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ComputerLab"
+                ],
+                "summary": "Update a ComputerLab",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ComputerLab ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ComputerLab object",
+                        "name": "ComputerLab",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ComputerLab"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ComputerLab"
+                        }
+                    }
+                }
+            }
+        },
+        "/ComputerLab/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ComputerLab"
+                ],
+                "summary": "Get a ComputerLab by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ComputerLab ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ComputerLab"
+                        }
+                    }
+                }
+            }
+        },
+        "/Course/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Course"
+                ],
+                "summary": "Create a new Course",
+                "parameters": [
+                    {
+                        "description": "Course object",
+                        "name": "Course",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Course"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.Course"
+                        }
+                    }
+                }
+            }
+        },
+        "/Course/delete/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "tags": [
+                    "Course"
+                ],
+                "summary": "Delete a Course",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Course ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/Course/filter": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Course"
+                ],
+                "summary": "Get Courses based on given filters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Course Name",
+                        "name": "course_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "School ID",
+                        "name": "school_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Active status",
+                        "name": "active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Instructor",
+                        "name": "instructor",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Duration in weeks",
+                        "name": "duration_weeks",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Course Credits",
+                        "name": "credits",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "description": "Course Fee",
+                        "name": "fee",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Course Description",
+                        "name": "description",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Syllabus",
+                        "name": "syllabus",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Start Date (YYYY-MM-DD)",
+                        "name": "start_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "End Date (YYYY-MM-DD)",
+                        "name": "end_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Created By",
+                        "name": "created_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Updated By",
+                        "name": "updated_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Course ID",
+                        "name": "course_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Course"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Course/getCourses": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Course"
+                ],
+                "summary": "Get all Courses",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Course"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Course/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Course"
+                ],
+                "summary": "Update a Course",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Course ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Course object",
+                        "name": "Course",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Course"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Course"
+                        }
+                    }
+                }
+            }
+        },
+        "/Course/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Course"
+                ],
+                "summary": "Get a Course by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Course ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Course"
                         }
                     }
                 }
@@ -1291,6 +2152,63 @@
         }
     },
     "definitions": {
+        "model.Book": {
+            "type": "object",
+            "required": [
+                "active",
+                "author",
+                "book_name",
+                "created_by",
+                "edition_number",
+                "publisher",
+                "school_id"
+            ],
+            "properties": {
+                "active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "author": {
+                    "type": "string"
+                },
+                "book_name": {
+                    "type": "string",
+                    "example": "panchtantra"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "created_by": {
+                    "type": "string",
+                    "example": "vishal"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "deleted_by": {
+                    "type": "string"
+                },
+                "edition_number": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "id": {
+                    "type": "string"
+                },
+                "publisher": {
+                    "type": "string"
+                },
+                "school_id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string"
+                }
+            }
+        },
         "model.Class": {
             "type": "object",
             "required": [
@@ -1434,6 +2352,154 @@
                     "example": "admin"
                 },
                 "village": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.ComputerLab": {
+            "type": "object",
+            "required": [
+                "active",
+                "class_name",
+                "classroom_number",
+                "created_by",
+                "instructor",
+                "school_id",
+                "syllabus",
+                "total_students"
+            ],
+            "properties": {
+                "active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "class_name": {
+                    "type": "string",
+                    "example": "Advanced Programming"
+                },
+                "classroom_number": {
+                    "type": "string",
+                    "example": "C-202"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "created_by": {
+                    "type": "string",
+                    "example": "admin"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "deleted_by": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "instructor": {
+                    "type": "string",
+                    "example": "John Doe"
+                },
+                "school_id": {
+                    "type": "string"
+                },
+                "syllabus": {
+                    "type": "string",
+                    "example": "Introduction to Python, Data Structures"
+                },
+                "total_students": {
+                    "type": "integer",
+                    "example": 30
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "updated_by": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.Course": {
+            "type": "object",
+            "required": [
+                "active",
+                "course_name",
+                "created_by",
+                "credits",
+                "description",
+                "duration_weeks",
+                "end_date",
+                "fee",
+                "instructor",
+                "school_id",
+                "start_date",
+                "syllabus"
+            ],
+            "properties": {
+                "active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "course_name": {
+                    "type": "string",
+                    "example": "Full Stack Development"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "created_by": {
+                    "type": "string",
+                    "example": "admin"
+                },
+                "credits": {
+                    "description": "Course credits",
+                    "type": "integer",
+                    "example": 3
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "deleted_by": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "An advanced course covering both front-end and back-end development."
+                },
+                "duration_weeks": {
+                    "description": "Duration in weeks",
+                    "type": "integer",
+                    "example": 12
+                },
+                "end_date": {
+                    "type": "string"
+                },
+                "fee": {
+                    "type": "number",
+                    "example": 15000
+                },
+                "id": {
+                    "type": "string"
+                },
+                "instructor": {
+                    "type": "string",
+                    "example": "Jane Doe"
+                },
+                "school_id": {
+                    "type": "string"
+                },
+                "start_date": {
+                    "type": "string"
+                },
+                "syllabus": {
+                    "type": "string",
+                    "example": "HTML, CSS, JavaScript, React, Node.js, Databases"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "updated_by": {
                     "type": "string"
                 }
             }

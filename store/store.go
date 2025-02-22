@@ -29,6 +29,9 @@ func (store *Postgress) NewStore() error {
 		model.College{},
 		model.Class{},
 		model.Teacher{},
+		model.Book{},
+		model.ComputerLab{},
+		model.Course{},
 	)
 	if err != nil {
 		utils.Log(model.LogLevelError, model.Store, model.NewStore, "error while automigration", err)
@@ -71,4 +74,25 @@ type StoreOperation interface {
 	GetTeacherByFilter(filter map[string]interface{}) ([]model.Teacher, error)
 	DeleteTeacher(TeacherID string) error
 	UpdateTeacher(Teacher *model.Teacher) error
+
+	CreateBook(Book *model.Book) error
+	GetBook() ([]model.Book, error)
+	GetBookByID(BookID uuid.UUID) (*model.Book, error)
+	GetBookByFilter(filter map[string]interface{}) ([]model.Book, error)
+	DeleteBook(BookID string) error
+	UpdateBook(Book *model.Book) error
+
+	CreateComputerLab(ComputerLab *model.ComputerLab) error
+	GetComputerLab() ([]model.ComputerLab, error)
+	GetComputerLabByID(ComputerLabID uuid.UUID) (*model.ComputerLab, error)
+	GetComputerLabByFilter(filter map[string]interface{}) ([]model.ComputerLab, error)
+	DeleteComputerLab(ComputerLabID string) error
+	UpdateComputerLab(ComputerLab *model.ComputerLab) error
+
+	CreateCourse(Course *model.Course) error
+	GetCourse() ([]model.Course, error)
+	GetCourseByID(CourseID uuid.UUID) (*model.Course, error)
+	GetCourseByFilter(filter map[string]interface{}) ([]model.Course, error)
+	DeleteCourse(CourseID string) error
+	UpdateCourse(Course *model.Course) error
 }

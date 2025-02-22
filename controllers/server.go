@@ -58,4 +58,25 @@ type ServerOperation interface {
 	GetTeacherByFilter(ctx *gin.Context)
 	DeleteTeacher(c *gin.Context) error
 	UpdateTeacher(c *gin.Context) error
+
+	CreateBook(ctx *gin.Context)
+	GetBook(ctx *gin.Context)
+	GetBookByID(ctx *gin.Context)
+	GetBookByFilter(ctx *gin.Context)
+	DeleteBook(c *gin.Context) error
+	UpdateBook(c *gin.Context) error
+
+	CreateComputerLab(ctx *gin.Context)
+	GetComputerLab(ctx *gin.Context)
+	GetComputerLabByID(ctx *gin.Context)
+	GetComputerLabByFilter(ctx *gin.Context)
+	DeleteComputerLab(c *gin.Context) error
+	UpdateComputerLab(c *gin.Context) error
+
+	CreateCourse(ctx *gin.Context)
+	GetCourse(ctx *gin.Context)
+	GetCourseByID(ctx *gin.Context)
+	GetCourseByFilter(ctx *gin.Context)
+	DeleteCourse(c *gin.Context) error
+	UpdateCourse(c *gin.Context) error
 }

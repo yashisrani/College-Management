@@ -67,6 +67,27 @@ var (
 	UpdateTeacher      = "update-Teacher"
 	DeleteTeacher      = "delete-Teacher"
 
+	CreateBook      = "create-Book"
+	GetBook         = "get-Book"
+	GetBookByFilter = "get-Book-by-filter"
+	GetBookByID     = "get-Book-by-id"
+	UpdateBook      = "update-Book"
+	DeleteBook      = "delete-Book"
+
+	CreateComputerLab      = "create-ComputerLab"
+	GetComputerLab         = "get-ComputerLab"
+	GetComputerLabByFilter = "get-ComputerLab-by-filter"
+	GetComputerLabByID     = "get-ComputerLab-by-id"
+	UpdateComputerLab      = "update-ComputerLab"
+	DeleteComputerLab      = "delete-ComputerLab"
+
+	CreateCourse      = "create-Course"
+	GetCourse         = "get-Course"
+	GetCourseByFilter = "get-Course-by-filter"
+	GetCourseByID     = "get-Course-by-id"
+	UpdateCourse      = "update-Course"
+	DeleteCourse      = "delete-Course"
+
 	SetLimitAndPage = "setlimitandpage"
 	SetDateRangeFilter = "setdaterangefilter"
 )

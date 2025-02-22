@@ -1,5 +1,46 @@
 basePath: /
 definitions:
+  model.Book:
+    properties:
+      active:
+        example: true
+        type: boolean
+      author:
+        type: string
+      book_name:
+        example: panchtantra
+        type: string
+      created_at:
+        type: string
+      created_by:
+        example: vishal
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      edition_number:
+        example: 2
+        type: integer
+      id:
+        type: string
+      publisher:
+        type: string
+      school_id:
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+    required:
+    - active
+    - author
+    - book_name
+    - created_by
+    - edition_number
+    - publisher
+    - school_id
+    type: object
   model.Class:
     properties:
       active:
@@ -106,6 +147,116 @@ definitions:
     - pincode
     - state
     - university_type
+    type: object
+  model.ComputerLab:
+    properties:
+      active:
+        example: true
+        type: boolean
+      class_name:
+        example: Advanced Programming
+        type: string
+      classroom_number:
+        example: C-202
+        type: string
+      created_at:
+        type: string
+      created_by:
+        example: admin
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      id:
+        type: string
+      instructor:
+        example: John Doe
+        type: string
+      school_id:
+        type: string
+      syllabus:
+        example: Introduction to Python, Data Structures
+        type: string
+      total_students:
+        example: 30
+        type: integer
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+    required:
+    - active
+    - class_name
+    - classroom_number
+    - created_by
+    - instructor
+    - school_id
+    - syllabus
+    - total_students
+    type: object
+  model.Course:
+    properties:
+      active:
+        example: true
+        type: boolean
+      course_name:
+        example: Full Stack Development
+        type: string
+      created_at:
+        type: string
+      created_by:
+        example: admin
+        type: string
+      credits:
+        description: Course credits
+        example: 3
+        type: integer
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      description:
+        example: An advanced course covering both front-end and back-end development.
+        type: string
+      duration_weeks:
+        description: Duration in weeks
+        example: 12
+        type: integer
+      end_date:
+        type: string
+      fee:
+        example: 15000
+        type: number
+      id:
+        type: string
+      instructor:
+        example: Jane Doe
+        type: string
+      school_id:
+        type: string
+      start_date:
+        type: string
+      syllabus:
+        example: HTML, CSS, JavaScript, React, Node.js, Databases
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+    required:
+    - active
+    - course_name
+    - created_by
+    - credits
+    - description
+    - duration_weeks
+    - end_date
+    - fee
+    - instructor
+    - school_id
+    - start_date
+    - syllabus
     type: object
   model.ErrorResponse:
     properties:
@@ -229,6 +380,177 @@ info:
   title: School-Management
   version: "1.0"
 paths:
+  /Book/{id}:
+    get:
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Book'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Book by ID
+      tags:
+      - Book
+  /Book/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Book object
+        in: body
+        name: Book
+        required: true
+        schema:
+          $ref: '#/definitions/model.Book'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Book'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new Book
+      tags:
+      - Book
+  /Book/delete/{id}:
+    delete:
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a Book
+      tags:
+      - Book
+  /Book/filter:
+    get:
+      parameters:
+      - description: Book Name
+        in: query
+        name: book_name
+        type: string
+      - description: School ID
+        in: query
+        name: school_id
+        type: string
+      - description: Active status
+        in: query
+        name: active
+        type: boolean
+      - description: Created By
+        in: query
+        name: created_by
+        type: string
+      - description: Updated By
+        in: query
+        name: updated_by
+        type: string
+      - description: Book ID
+        in: query
+        name: book_id
+        type: string
+      - description: Publisher
+        in: query
+        name: publisher
+        type: string
+      - description: Author
+        in: query
+        name: author
+        type: string
+      - description: Edition Number
+        in: query
+        name: edition_number
+        type: integer
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Book'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get Books based on given filters
+      tags:
+      - Book
+  /Book/getBooks:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Book'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all Books
+      tags:
+      - Book
+  /Book/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Book object
+        in: body
+        name: Book
+        required: true
+        schema:
+          $ref: '#/definitions/model.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Book'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a Book
+      tags:
+      - Book
   /Class/{id}:
     get:
       parameters:
@@ -392,6 +714,372 @@ paths:
       summary: Update a Class
       tags:
       - Class
+  /ComputerLab/{id}:
+    get:
+      parameters:
+      - description: ComputerLab ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ComputerLab'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a ComputerLab by ID
+      tags:
+      - ComputerLab
+  /ComputerLab/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: ComputerLab object
+        in: body
+        name: ComputerLab
+        required: true
+        schema:
+          $ref: '#/definitions/model.ComputerLab'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ComputerLab'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new ComputerLab
+      tags:
+      - ComputerLab
+  /ComputerLab/delete/{id}:
+    delete:
+      parameters:
+      - description: ComputerLab ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a ComputerLab
+      tags:
+      - ComputerLab
+  /ComputerLab/filter:
+    get:
+      parameters:
+      - description: Class Name
+        in: query
+        name: class_name
+        type: string
+      - description: School ID
+        in: query
+        name: school_id
+        type: string
+      - description: Active status
+        in: query
+        name: active
+        type: boolean
+      - description: Instructor
+        in: query
+        name: instructor
+        type: string
+      - description: Total Students
+        in: query
+        name: total_students
+        type: integer
+      - description: Classroom Number
+        in: query
+        name: classroom_number
+        type: string
+      - description: Syllabus
+        in: query
+        name: syllabus
+        type: string
+      - description: Created By
+        in: query
+        name: created_by
+        type: string
+      - description: Updated By
+        in: query
+        name: updated_by
+        type: string
+      - description: ComputerLab ID
+        in: query
+        name: computerlab_id
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.ComputerLab'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get ComputerLabs based on given filters
+      tags:
+      - ComputerLab
+  /ComputerLab/getComputerLabs:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.ComputerLab'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all ComputerLabs
+      tags:
+      - ComputerLab
+  /ComputerLab/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ComputerLab ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ComputerLab object
+        in: body
+        name: ComputerLab
+        required: true
+        schema:
+          $ref: '#/definitions/model.ComputerLab'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ComputerLab'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a ComputerLab
+      tags:
+      - ComputerLab
+  /Course/{id}:
+    get:
+      parameters:
+      - description: Course ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Course'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Course by ID
+      tags:
+      - Course
+  /Course/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Course object
+        in: body
+        name: Course
+        required: true
+        schema:
+          $ref: '#/definitions/model.Course'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Course'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new Course
+      tags:
+      - Course
+  /Course/delete/{id}:
+    delete:
+      parameters:
+      - description: Course ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a Course
+      tags:
+      - Course
+  /Course/filter:
+    get:
+      parameters:
+      - description: Course Name
+        in: query
+        name: course_name
+        type: string
+      - description: School ID
+        in: query
+        name: school_id
+        type: string
+      - description: Active status
+        in: query
+        name: active
+        type: boolean
+      - description: Instructor
+        in: query
+        name: instructor
+        type: string
+      - description: Duration in weeks
+        in: query
+        name: duration_weeks
+        type: integer
+      - description: Course Credits
+        in: query
+        name: credits
+        type: integer
+      - description: Course Fee
+        in: query
+        name: fee
+        type: number
+      - description: Course Description
+        in: query
+        name: description
+        type: string
+      - description: Syllabus
+        in: query
+        name: syllabus
+        type: string
+      - description: Start Date (YYYY-MM-DD)
+        in: query
+        name: start_date
+        type: string
+      - description: End Date (YYYY-MM-DD)
+        in: query
+        name: end_date
+        type: string
+      - description: Created By
+        in: query
+        name: created_by
+        type: string
+      - description: Updated By
+        in: query
+        name: updated_by
+        type: string
+      - description: Course ID
+        in: query
+        name: course_id
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Course'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get Courses based on given filters
+      tags:
+      - Course
+  /Course/getCourses:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Course'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all Courses
+      tags:
+      - Course
+  /Course/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Course ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Course object
+        in: body
+        name: Course
+        required: true
+        schema:
+          $ref: '#/definitions/model.Course'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Course'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a Course
+      tags:
+      - Course
   /Teacher/{id}:
     get:
       parameters:
