@@ -6,9 +6,9 @@ import (
 	"github.com/yashisrani/Go-Backend/controllers"
 )
 
-// @title School-Management
+// @title College-Management-System
 // @version 1.0
-// @description APIs to manage School operations
+// @description APIs to manage College operations
 // @host localhost:8000
 // @BasePath /
 // @schemes http https
