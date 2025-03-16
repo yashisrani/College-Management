@@ -5,8 +5,8 @@
     ],
     "swagger": "2.0",
     "info": {
-        "description": "APIs to manage School operations",
-        "title": "School-Management",
+        "description": "APIs to manage College operations",
+        "title": "College-Management-System",
         "contact": {},
         "version": "1.0"
     },
