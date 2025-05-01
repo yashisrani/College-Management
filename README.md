@@ -19,31 +19,19 @@ A simple and efficient system to manage students, courses, faculties, and depart
 - **Monitoring**: Prometheus metrics and Grafana dashboards for system monitoring
 
 ## Technologies Used 👨🏻‍💻
-**Backend**: Go (Golang) with Gin framework
+- **Backend**: Go (Golang) with Gin framework
 
-**Database**: PostgreSQL
+- **Database**: PostgreSQL
 
-**Authentication**: JWT (JSON Web Tokens)
+- **Authentication**: JWT (JSON Web Tokens)
 
-**API Documentation**: Swagger UI
+- **API Documentation**: Swagger UI
 
-**Monitoring**: Prometheus and Grafana
+- **Monitoring**: Prometheus and Grafana
 
-**Containerization**: Docker and Docker Compose
+- **Containerization**: Docker and Docker Compose
 
-**CI/CD**: GitHub Actions​
-
-## ScreenShots
-
-<img width="1440" alt="Screen Shot 2025-05-01 at 12 57 43 PM" src="https://github.com/user-attachments/assets/f3ca557e-c3a3-4727-a75e-57592c5b2d37" />
-<img width="1440" alt="Screen Shot 2025-05-01 at 12 57 49 PM" src="https://github.com/user-attachments/assets/387b2bab-cab6-4e8e-a4e8-8e68832fe9fa" />
-<img width="1440" alt="Screen Shot 2025-05-01 at 12 57 59 PM" src="https://github.com/user-attachments/assets/afda27b9-b583-4efa-9622-17d0db687e58" />
-
-
-<img width="1440" alt="Screen Shot 2025-03-15 at 10 22 04 PM" src="https://github.com/user-attachments/assets/28cdb19d-8d71-41ba-85ec-9a627c8fa605" />
-
-<img width="1434" alt="Screen Shot 2025-03-16 at 2 24 48 PM" src="https://github.com/user-attachments/assets/3a0c9232-37d7-4cc5-a596-6bd49b89697d" />
-<img width="1440" alt="Screen Shot 2025-03-15 at 10 18 48 PM" src="https://github.com/user-attachments/assets/5cec9644-f157-40c3-8b5a-5b9067c335b6" />
+- **CI/CD**: GitHub Actions​
 
 ## Folder Structure
 `api/` - API route definitions
@@ -99,3 +87,14 @@ docker-compose up --build
 
 - Grafana dashboards (if configured) will be available at `http://localhost:3000​`
 
+## ScreenShots
+
+<img width="1440" alt="Screen Shot 2025-05-01 at 12 57 43 PM" src="https://github.com/user-attachments/assets/f3ca557e-c3a3-4727-a75e-57592c5b2d37" />
+<img width="1440" alt="Screen Shot 2025-05-01 at 12 57 49 PM" src="https://github.com/user-attachments/assets/387b2bab-cab6-4e8e-a4e8-8e68832fe9fa" />
+<img width="1440" alt="Screen Shot 2025-05-01 at 12 57 59 PM" src="https://github.com/user-attachments/assets/afda27b9-b583-4efa-9622-17d0db687e58" />
+
+
+<img width="1440" alt="Screen Shot 2025-03-15 at 10 22 04 PM" src="https://github.com/user-attachments/assets/28cdb19d-8d71-41ba-85ec-9a627c8fa605" />
+
+<img width="1434" alt="Screen Shot 2025-03-16 at 2 24 48 PM" src="https://github.com/user-attachments/assets/3a0c9232-37d7-4cc5-a596-6bd49b89697d" />
+<img width="1440" alt="Screen Shot 2025-03-15 at 10 18 48 PM" src="https://github.com/user-attachments/assets/5cec9644-f157-40c3-8b5a-5b9067c335b6" />
